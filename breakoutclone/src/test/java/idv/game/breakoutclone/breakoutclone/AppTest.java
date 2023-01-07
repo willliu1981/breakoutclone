@@ -1,20 +1,34 @@
 package idv.game.breakoutclone.breakoutclone;
 
-import static org.junit.Assert.assertTrue;
-
 import org.junit.Test;
+
+import idv.game.breakoutclone.breakoutclone.collider.BaseRectangle;
+import idv.game.breakoutclone.breakoutclone.collider.Circle;
+import idv.game.breakoutclone.breakoutclone.collider.Rectangle;
+import idv.game.breakoutclone.breakoutclone.collider.RoundedRectangle;
 
 /**
  * Unit test for simple App.
  */
-public class AppTest 
-{
-    /**
-     * Rigorous Test :-)
-     */
-    @Test
-    public void shouldAnswerWithTrue()
-    {
-        assertTrue( true );
-    }
+public class AppTest {
+	/**
+	 * Rigorous Test :-)
+	 */
+	@Test
+	public void shouldAnswerWithTrue() {
+		//assertTrue( true );
+
+		BaseRectangle rect1 = new RoundedRectangle(10, 40, 8);
+		System.out.println("rect1 " + rect1);
+
+		BaseRectangle rect2 = new Rectangle(20, 40);
+		rect2.setRound_length(5);
+		System.out.println("rect2 " + rect2);
+
+		BaseRectangle rect3 = new Circle(20);
+		rect3.setWidth(5);
+		System.out.println("rect3 " + rect3);
+
+	}
+
 }
