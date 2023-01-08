@@ -22,7 +22,7 @@ import idv.game.breakoutclone.frame.graphics.paint.Painter;
 import idv.game.breakoutclone.system.physics.Physics;
 import idv.game.breakoutclone.system.physics.Point;
 import idv.game.breakoutclone.system.physics.Ray;
-import idv.game.breakoutclone.tools.Unit;
+import idv.game.breakoutclone.system.physics.RayCastHit;
 
 public class TestFrame extends JFrame {
 	private final static String UNIT = "UNIT";
@@ -88,7 +88,7 @@ public class TestFrame extends JFrame {
 				super.paint(g);
 				CollisionPainter painter = new CollisionPainter();
 				Point p0 = new Point(100, 100);
-				Point nextMove = Physics.nextMove(p0, 200, 22);
+				Point nextMove = Physics.nextMove(p0, 200, 60);
 
 				Point t1 = new Point(100, 200);
 				Point t2 = new Point(500, 300);
@@ -99,15 +99,14 @@ public class TestFrame extends JFrame {
 				painter.paint(g, ray);
 				painter.paint(g, ray2);
 
-				boolean flag = Physics.collide1(ray, ray2);
+				RayCastHit hit = new RayCastHit();
+				boolean isCollided = Physics.RaycastTest(ray, ray2, hit, 200);
 
-				Point collidePoint = Physics.rayCollidePoint(p0, nextMove, t1,
-						t2);
-				painter.paint(g, collidePoint);
-				if (!flag) {
+				painter.paint(g, hit.getCollidePoint());
+				if (!isCollided) {
 					lblInfo.setText("沒有碰撞");
 				} else {
-					lblInfo.setText(collidePoint.toString());
+					lblInfo.setText(hit.getCollidePoint().toString());
 				}
 
 			}

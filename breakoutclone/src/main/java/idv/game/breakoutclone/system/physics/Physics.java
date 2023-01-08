@@ -19,7 +19,25 @@ public class Physics {
 		return new Point(p0.x + x, p0.y + y);
 	}
 
-	static public boolean collide1(Ray ray, Ray rayTarget) {
+	static public boolean RaycastTest(Ray ray, Ray targeLine, RayCastHit hit,
+			double distance) {
+
+		Point rayCollidePoint = rayCollidePoint(ray.getP0(), ray.getP1(),
+				targeLine.p0, targeLine.p1);
+
+		boolean boolCollided = false;
+
+		if (rayCollidePoint != null) {
+			if (distance > calcDistance(ray.p0, rayCollidePoint)) {
+				hit.setCollidePoint(rayCollidePoint);
+				boolCollided = true;
+			}
+		}
+
+		return boolCollided;
+	}
+
+	static public boolean collideTest(Ray ray, Ray rayTarget) {
 		return collide1(ray, rayTarget, calcDistance(ray.p0, ray.p1));
 	}
 
@@ -39,7 +57,7 @@ public class Physics {
 		return flag;
 	}
 
-	static public Point rayCollidePoint(Point rayP1, Point rayP2,
+	static private Point rayCollidePoint(Point rayP1, Point rayP2,
 			Point targetP1, Point targetP2) {
 		double A1 = rayP1.y - rayP2.y;
 		double B1 = rayP2.x - rayP1.x;
