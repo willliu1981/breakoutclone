@@ -88,7 +88,7 @@ public class TestFrame extends JFrame {
 				super.paint(g);
 				CollisionPainter painter = new CollisionPainter();
 				Point p0 = new Point(100, 100);
-				Point nextMove = Physics.nextMove(p0, 200, 60);
+				Point nextMove = Physics.nextMove(p0, 135, 60);
 
 				Point t1 = new Point(100, 200);
 				Point t2 = new Point(500, 300);
@@ -100,7 +100,7 @@ public class TestFrame extends JFrame {
 				painter.paint(g, ray2);
 
 				RayCastHit hit = new RayCastHit();
-				boolean isCollided = Physics.RaycastTest(ray, ray2, hit, 200);
+				boolean isCollided = Physics.Raycast(ray, ray2, hit, 135);
 
 				painter.paint(g, hit.getCollidePoint());
 				if (!isCollided) {

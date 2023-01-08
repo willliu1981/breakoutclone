@@ -5,7 +5,8 @@ import org.junit.jupiter.api.Test;
 public class Physics {
 
 	static public double calcDistance(Point p0, Point p1) {
-		double dist = Math.pow((p1.x - p0.x) * (p1.x - p0.x) + (p1.y - p0.y),
+		double dist = Math.pow(
+				(p1.x - p0.x) * (p1.x - p0.x) + (p1.y - p0.y) * (p1.y - p0.y),
 				0.5);
 
 		return dist;
@@ -19,7 +20,7 @@ public class Physics {
 		return new Point(p0.x + x, p0.y + y);
 	}
 
-	static public boolean RaycastTest(Ray ray, Ray targeLine, RayCastHit hit,
+	static public boolean Raycast(Ray ray, Ray targeLine, RayCastHit hit,
 			double distance) {
 
 		Point rayCollidePoint = rayCollidePoint(ray.getP0(), ray.getP1(),
@@ -29,32 +30,15 @@ public class Physics {
 
 		if (rayCollidePoint != null) {
 			if (distance > calcDistance(ray.p0, rayCollidePoint)) {
+				System.out.println("P " + distance);
+				System.out
+						.println("P2 " + calcDistance(ray.p0, rayCollidePoint));
 				hit.setCollidePoint(rayCollidePoint);
 				boolCollided = true;
 			}
 		}
 
 		return boolCollided;
-	}
-
-	static public boolean collideTest(Ray ray, Ray rayTarget) {
-		return collide1(ray, rayTarget, calcDistance(ray.p0, ray.p1));
-	}
-
-	static public boolean collide1(Ray ray, Ray rayTarget, double length) {
-		Point rayCollidePoint = rayCollidePoint(ray.getP0(), ray.getP1(),
-				rayTarget.p0, rayTarget.p1);
-		boolean flag = false;
-
-		if (rayCollidePoint == null) {
-			return false;
-		}
-
-		if (length > calcDistance(ray.p0, rayCollidePoint)) {
-			flag = true;
-		}
-
-		return flag;
 	}
 
 	static private Point rayCollidePoint(Point rayP1, Point rayP2,
