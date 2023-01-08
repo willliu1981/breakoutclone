@@ -10,4 +10,9 @@ public class Line extends Ray {
 		super(p0, p1);
 	}
 
+	@Override
+	public String toString() {
+		return "Line [p0=" + p0 + ", p1=" + p1 + "]";
+	}
+
 }

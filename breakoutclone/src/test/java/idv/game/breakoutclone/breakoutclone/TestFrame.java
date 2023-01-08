@@ -56,15 +56,16 @@ public class TestFrame extends JFrame {
 
 	private void init() {
 		GameObject go1 = new GameObject();
-		go1.setLocation(new Point(100, 100));
+		go1.setLocation(new Point(200, 200));
 		Collider collider = new Rectangle(200, 160);
-		collider.setX(-100);
-		collider.setY(-80);
-
-		go1.addCollider(new Rectangle(200, 160));
-
+		go1.addCollider(collider);
 		Scenes.addGameObject(go1);
 
+		GameObject go2 = new GameObject();
+		go2.setLocation(new Point(210, 360));
+		Collider collider2 = new Rectangle(260, 60);
+		go2.addCollider(collider2);
+		Scenes.addGameObject(go2);
 	}
 
 	/**
@@ -106,9 +107,12 @@ public class TestFrame extends JFrame {
 			@Override
 			public void paint(Graphics g) {
 				super.paint(g);
-				final double rayLength = 558;
+				final double rayLength = 458;
 
 				Scenes.getGameObjects().stream().forEach(go -> {
+					CollisionPainter goCollisionPainter = new CollisionPainter();
+					goCollisionPainter.paint(g, go.getLocation());
+
 					go.getColliders().stream().forEach(c -> {
 						ColliderPainter colliderPainter = new ColliderPainter();
 						Point translateToWorldLocation = Locations
@@ -120,8 +124,8 @@ public class TestFrame extends JFrame {
 				});
 
 				CollisionPainter collisionPainter = new CollisionPainter();
-				Point p0 = new Point(220, 320);
-				Point nextMove = Physics.nextMove(p0, rayLength, -44);
+				Point p0 = new Point(80, 293);
+				Point nextMove = Physics.nextMove(p0, rayLength, -12);
 
 				Ray ray = new Ray(p0, nextMove);
 
@@ -136,6 +140,9 @@ public class TestFrame extends JFrame {
 				} else {
 					lblInfo.setText(hit.getFirstCollidePoint().toString());
 				}
+
+				hit.getHits()
+						.forEach(h -> System.out.println(h.getCollidePoint()));
 
 			}
 		};

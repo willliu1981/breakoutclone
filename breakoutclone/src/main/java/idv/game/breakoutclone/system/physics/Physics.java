@@ -39,7 +39,6 @@ public class Physics {
 		gameObjects.forEach(g -> {
 			List<Collider> colliders = g.getColliders();
 			colliders.forEach(c -> {
-				RayLineCastHit h = new RayLineCastHit();
 				if (c instanceof Rectangle) {
 					Rectangle rect = (Rectangle) c;
 
@@ -55,6 +54,7 @@ public class Physics {
 					Arrays.asList(new Line(p1, p2), new Line(p2, p3),
 							new Line(p3, p4), new Line(p4, p1)).stream()
 							.forEach(l -> {
+								RayLineCastHit h = new RayLineCastHit();
 								if (Raycast(ray, l, h, distance)) {
 									h.setOwner(c);
 									RLCastHits.add(h);
@@ -65,7 +65,7 @@ public class Physics {
 		});
 
 		List<RayLineCastHit> reslult = RLCastHits.stream().sorted((h1, h2) -> {
-			int flag = (int) (h2.getDistance() - h1.getDistance());
+			int flag = (int) (h1.getDistance() - h2.getDistance());
 
 			return flag > 0 ? 1 : flag < 0 ? -1 : 0;
 		}).collect(Collectors.toList());
@@ -86,6 +86,9 @@ public class Physics {
 			return false;
 		}
 
+		System.out.println("P1-1 " + calcDistance(ray.p0, rayIntersectPoint));
+		System.out.println("P1-2 " + rayIntersectPoint);
+		System.out.println("P1-3 " + targetLine);
 		//不在目標邊上
 		if (!(rayIntersectPoint.x >= Math.min(targetLine.p0.x, targetLine.p1.x)
 				&& rayIntersectPoint.x <= Math.max(targetLine.p0.x,
@@ -96,13 +99,15 @@ public class Physics {
 						targetLine.p1.y))) {
 			return false;
 		}
+		System.out.println("P2 " );
 
 		//在目標距離外
 		if (distance < (targetDistance = calcDistance(ray.p0,
 				rayIntersectPoint))) {
+
 			return false;
 		}
-
+		System.out.println("P3 " );
 		//方向同異
 		if (ray.p0.x != rayIntersectPoint.x) {
 			if ((ray.p1.x - ray.p0.x) * (rayIntersectPoint.x - ray.p0.x) > 0) {
@@ -146,16 +151,9 @@ public class Physics {
 
 	@Test
 	public void test() {
-		Point p0 = new Point(100, 100);
-		Point nextMove = Physics.nextMove(p0, 10, 45);
-
-		Point t1 = new Point(100, 200);
-		Point t2 = new Point(200, 100);
-
-		Point collidePoint = Physics.rayIntersectPoint(p0, nextMove, t1, t2);
-
-		System.out.println("physics " + collidePoint);
-
+		double calcDistance = Physics.calcDistance(new Point(0, 0),
+				new Point(-100, -100));
+		System.out.println("P " + calcDistance);
 	}
 
 }

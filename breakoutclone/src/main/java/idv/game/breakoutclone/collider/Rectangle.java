@@ -9,6 +9,8 @@ public class Rectangle extends SolvedRoundedRectangle {
 	public Rectangle(double width, double height) {
 		this.setWidth(width);
 		this.setHeight(height);
+		this.setX(-width / 2);
+		this.setY(-height / 2);
 	}
 
 	@Override
