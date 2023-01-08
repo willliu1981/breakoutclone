@@ -4,9 +4,9 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 import idv.game.breakoutclone.breakoutclone.collider.BaseRectangle;
-import idv.game.breakoutclone.system.coordinates.Point;
+import idv.game.breakoutclone.system.physics.Point;
 
-public class CollidePainter extends Painter {
+public class ColliderPainter extends Painter {
 
 	@Override
 	public void paint(Graphics g, Paintable paint) {

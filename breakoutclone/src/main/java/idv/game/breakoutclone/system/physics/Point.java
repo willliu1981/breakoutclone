@@ -1,18 +1,20 @@
-package idv.game.breakoutclone.system.coordinates;
+package idv.game.breakoutclone.system.physics;
 
-public class Point {
+import idv.game.breakoutclone.frame.graphics.paint.Paintable;
+
+public class Point implements Paintable {
 	public double x;
 	public double y;
 
-	
-	
+	public Point() {
+		super();
+	}
+
 	public Point(double x, double y) {
 		super();
 		this.x = x;
 		this.y = y;
 	}
-
-
 
 	@Override
 	public String toString() {

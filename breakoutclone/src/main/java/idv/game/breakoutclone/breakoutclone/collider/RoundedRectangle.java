@@ -1,5 +1,7 @@
 package idv.game.breakoutclone.breakoutclone.collider;
 
+import idv.game.breakoutclone.system.physics.Point;
+
 public class RoundedRectangle extends SolvedRoundedRectangle {
 
 	public RoundedRectangle() {
@@ -15,5 +17,7 @@ public class RoundedRectangle extends SolvedRoundedRectangle {
 		this.setHeight(height);
 		this.setRound_length(round_length);
 	}
+	
+	
 
 }
