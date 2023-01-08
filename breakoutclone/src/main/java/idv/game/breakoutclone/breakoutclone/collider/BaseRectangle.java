@@ -1,6 +1,8 @@
 package idv.game.breakoutclone.breakoutclone.collider;
 
-public abstract class BaseRectangle {
+import idv.game.breakoutclone.frame.graphics.paint.Paintable;
+
+public abstract class BaseRectangle implements Paintable {
 	protected double round_length;//圓角
 	protected double width;
 	protected double height;

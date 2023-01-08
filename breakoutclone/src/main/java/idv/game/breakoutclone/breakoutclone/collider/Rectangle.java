@@ -13,7 +13,7 @@ public class Rectangle extends SolvedRoundedRectangle {
 
 	@Override
 	public void setRound_length(double round_length) {
-
+		//nothing
 	}
 
 }

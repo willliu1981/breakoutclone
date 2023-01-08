@@ -14,12 +14,12 @@ public class Circle extends SolvedRoundedRectangle {
 
 	@Override
 	public void setWidth(double width) {
-
+		//nothing
 	}
 
 	@Override
 	public void setHeight(double height) {
-
+		//nothing
 	}
 
 }
