@@ -89,8 +89,8 @@ public class TestFrame extends JFrame {
 				super.paint(g);
 				final double rayLength = 158;
 				CollisionPainter painter = new CollisionPainter();
-				Point p0 = new Point(88, 401);
-				Point nextMove = Physics.nextMove(p0, rayLength, 10);
+				Point p0 = new Point(100,220);
+				Point nextMove = Physics.nextMove(p0, rayLength,0);
 
 				Point t1 = new Point(100, 200);
 				Point t2 = new Point(100, 300);

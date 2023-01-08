@@ -20,48 +20,42 @@ public class Physics {
 		return new Point(p0.x + x, p0.y + y);
 	}
 
-	static public boolean Raycast(Ray ray, Ray targeLine, RayCastHit hit,
+	static public boolean Raycast(Ray ray, Ray targetLine, RayCastHit hit,
 			double distance) {
 
 		Point rayIntersectPoint = rayIntersectPoint(ray.getP0(), ray.getP1(),
-				targeLine.p0, targeLine.p1);
-
-		boolean boolCollided = false;
+				targetLine.p0, targetLine.p1);
 
 		if (rayIntersectPoint == null) {
 			return false;
 		}
 
+		//不在目標邊上
+		if (!(rayIntersectPoint.x >= Math.min(targetLine.p0.x, targetLine.p1.x)
+				&& rayIntersectPoint.x <= Math.max(targetLine.p0.x,
+						targetLine.p1.x)
+				&& rayIntersectPoint.y >= Math.min(targetLine.p0.y,
+						targetLine.p1.y)
+				&& rayIntersectPoint.y <= Math.max(targetLine.p0.y,
+						targetLine.p1.y))) {
+			return false;
+		}
+
+		//在目標距離外
 		if (distance < calcDistance(ray.p0, rayIntersectPoint)) {
 			return false;
 		}
 
-		try {
-			//方向同異
-			if (ray.p0.x != rayIntersectPoint.x) {
-				if ((ray.p1.x - ray.p0.x)
-						* (rayIntersectPoint.x - ray.p0.x) > 0) {
-					boolCollided = true;
-					System.out.println("t1");
-				}
-			} else if ((ray.p0.y != rayIntersectPoint.y)) {
-				if ((ray.p1.y - ray.p0.y)
-						* (rayIntersectPoint.y - ray.p0.y) > 0) {
-					boolCollided = true;
-					System.out.println("t2");
-				}
-			} else {
-				throw new Exception("發生碰撞重疊");
+		//方向同異
+		if (ray.p0.x != rayIntersectPoint.x) {
+			System.out.println("t1");
+			if ((ray.p1.x - ray.p0.x) * (rayIntersectPoint.x - ray.p0.x) > 0) {
+				hit.setCollidePoint(rayIntersectPoint);
+				return true;
 			}
-		} catch (Exception e) {
-			System.out.println(e);
 		}
 
-		if (boolCollided) {
-			hit.setCollidePoint(rayIntersectPoint);
-		}
-
-		return boolCollided;
+		return false;
 	}
 
 	static private Point rayIntersectPoint(Point rayP1, Point rayP2,
