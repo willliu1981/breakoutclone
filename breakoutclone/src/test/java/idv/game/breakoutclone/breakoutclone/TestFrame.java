@@ -88,7 +88,7 @@ public class TestFrame extends JFrame {
 				super.paint(g);
 				CollisionPainter painter = new CollisionPainter();
 				Point p0 = new Point(100, 100);
-				Point nextMove = Physics.nextMove(p0, 400, 45);
+				Point nextMove = Physics.nextMove(p0, 200, 22);
 
 				Point t1 = new Point(100, 200);
 				Point t2 = new Point(500, 300);
@@ -99,10 +99,13 @@ public class TestFrame extends JFrame {
 				painter.paint(g, ray);
 				painter.paint(g, ray2);
 
-				Point collidePoint = Physics.collidePoint(p0, nextMove, t1, t2);
+				boolean flag = Physics.collide1(ray, ray2);
+
+				Point collidePoint = Physics.rayCollidePoint(p0, nextMove, t1,
+						t2);
 				painter.paint(g, collidePoint);
-				if (collidePoint == null) {
-					lblInfo.setText("沒有交點");
+				if (!flag) {
+					lblInfo.setText("沒有碰撞");
 				} else {
 					lblInfo.setText(collidePoint.toString());
 				}

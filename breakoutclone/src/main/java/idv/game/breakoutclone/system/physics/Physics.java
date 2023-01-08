@@ -2,10 +2,14 @@ package idv.game.breakoutclone.system.physics;
 
 import org.junit.jupiter.api.Test;
 
-import idv.game.breakoutclone.frame.graphics.paint.CollisionPainter;
-import idv.game.breakoutclone.frame.graphics.paint.Paintable;
-
 public class Physics {
+
+	static public double calcDistance(Point p0, Point p1) {
+		double dist = Math.pow((p1.x - p0.x) * (p1.x - p0.x) + (p1.y - p0.y),
+				0.5);
+
+		return dist;
+	}
 
 	static public Point nextMove(Point p0, double velocity, double degree) {
 
@@ -15,12 +19,28 @@ public class Physics {
 		return new Point(p0.x + x, p0.y + y);
 	}
 
-	static public void collide(Ray ray) {
-
+	static public boolean collide1(Ray ray, Ray rayTarget) {
+		return collide1(ray, rayTarget, calcDistance(ray.p0, ray.p1));
 	}
 
-	static public Point collidePoint(Point rayP1, Point rayP2, Point targetP1,
-			Point targetP2) {
+	static public boolean collide1(Ray ray, Ray rayTarget, double length) {
+		Point rayCollidePoint = rayCollidePoint(ray.getP0(), ray.getP1(),
+				rayTarget.p0, rayTarget.p1);
+		boolean flag = false;
+
+		if (rayCollidePoint == null) {
+			return false;
+		}
+
+		if (length > calcDistance(ray.p0, rayCollidePoint)) {
+			flag = true;
+		}
+
+		return flag;
+	}
+
+	static public Point rayCollidePoint(Point rayP1, Point rayP2,
+			Point targetP1, Point targetP2) {
 		double A1 = rayP1.y - rayP2.y;
 		double B1 = rayP2.x - rayP1.x;
 		double C1 = A1 * rayP1.x + B1 * rayP1.y;
@@ -56,7 +76,7 @@ public class Physics {
 		Point t1 = new Point(100, 200);
 		Point t2 = new Point(200, 100);
 
-		Point collidePoint = Physics.collidePoint(p0, nextMove, t1, t2);
+		Point collidePoint = Physics.rayCollidePoint(p0, nextMove, t1, t2);
 
 		System.out.println("physics " + collidePoint);
 
