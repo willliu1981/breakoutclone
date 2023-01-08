@@ -23,6 +23,7 @@ import idv.game.breakoutclone.system.physics.Physics;
 import idv.game.breakoutclone.system.physics.Point;
 import idv.game.breakoutclone.system.physics.Ray;
 import idv.game.breakoutclone.system.physics.RayCastHit;
+import idv.game.breakoutclone.tools.Unit;
 
 public class TestFrame extends JFrame {
 	private final static String UNIT = "UNIT";
@@ -86,12 +87,13 @@ public class TestFrame extends JFrame {
 			@Override
 			public void paint(Graphics g) {
 				super.paint(g);
+				final double rayLength = 158;
 				CollisionPainter painter = new CollisionPainter();
-				Point p0 = new Point(100, 100);
-				Point nextMove = Physics.nextMove(p0, 135, 60);
+				Point p0 = new Point(88, 401);
+				Point nextMove = Physics.nextMove(p0, rayLength, 10);
 
 				Point t1 = new Point(100, 200);
-				Point t2 = new Point(500, 300);
+				Point t2 = new Point(100, 300);
 
 				Ray ray = new Ray(p0, nextMove);
 				Ray ray2 = new Ray(t1, t2);
@@ -100,7 +102,7 @@ public class TestFrame extends JFrame {
 				painter.paint(g, ray2);
 
 				RayCastHit hit = new RayCastHit();
-				boolean isCollided = Physics.Raycast(ray, ray2, hit, 135);
+				boolean isCollided = Physics.Raycast(ray, ray2, hit, rayLength);
 
 				painter.paint(g, hit.getCollidePoint());
 				if (!isCollided) {

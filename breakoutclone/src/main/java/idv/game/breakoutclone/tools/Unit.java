@@ -20,9 +20,9 @@ public class Unit {
 	@Test
 	public void test() {
 
-		Point p=new Point(10,20);
+		Point p=null;
 		
-		System.out.println("unit "+Unit.resolve(()->p.x));
+		System.out.println("unit "+Unit.resolve(()->p.x).toString());
 	
 		
 	}

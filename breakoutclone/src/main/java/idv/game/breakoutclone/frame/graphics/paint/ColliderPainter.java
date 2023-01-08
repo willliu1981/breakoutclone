@@ -52,9 +52,6 @@ public class ColliderPainter extends Painter {
 				(int) (p4.x - rect.getRound_length()),
 				(int) (p4.y - rect.getFixedHeigth()));
 
-		System.out.println("cp1 " + p3.y);
-		System.out.println("cp2 " + rect.getRound_length());
-
 	}
 
 }

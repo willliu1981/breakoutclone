@@ -23,25 +23,48 @@ public class Physics {
 	static public boolean Raycast(Ray ray, Ray targeLine, RayCastHit hit,
 			double distance) {
 
-		Point rayCollidePoint = rayCollidePoint(ray.getP0(), ray.getP1(),
+		Point rayIntersectPoint = rayIntersectPoint(ray.getP0(), ray.getP1(),
 				targeLine.p0, targeLine.p1);
 
 		boolean boolCollided = false;
 
-		if (rayCollidePoint != null) {
-			if (distance > calcDistance(ray.p0, rayCollidePoint)) {
-				System.out.println("P " + distance);
-				System.out
-						.println("P2 " + calcDistance(ray.p0, rayCollidePoint));
-				hit.setCollidePoint(rayCollidePoint);
-				boolCollided = true;
+		if (rayIntersectPoint == null) {
+			return false;
+		}
+
+		if (distance < calcDistance(ray.p0, rayIntersectPoint)) {
+			return false;
+		}
+
+		try {
+			//方向同異
+			if (ray.p0.x != rayIntersectPoint.x) {
+				if ((ray.p1.x - ray.p0.x)
+						* (rayIntersectPoint.x - ray.p0.x) > 0) {
+					boolCollided = true;
+					System.out.println("t1");
+				}
+			} else if ((ray.p0.y != rayIntersectPoint.y)) {
+				if ((ray.p1.y - ray.p0.y)
+						* (rayIntersectPoint.y - ray.p0.y) > 0) {
+					boolCollided = true;
+					System.out.println("t2");
+				}
+			} else {
+				throw new Exception("發生碰撞重疊");
 			}
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+
+		if (boolCollided) {
+			hit.setCollidePoint(rayIntersectPoint);
 		}
 
 		return boolCollided;
 	}
 
-	static private Point rayCollidePoint(Point rayP1, Point rayP2,
+	static private Point rayIntersectPoint(Point rayP1, Point rayP2,
 			Point targetP1, Point targetP2) {
 		double A1 = rayP1.y - rayP2.y;
 		double B1 = rayP2.x - rayP1.x;
@@ -78,7 +101,7 @@ public class Physics {
 		Point t1 = new Point(100, 200);
 		Point t2 = new Point(200, 100);
 
-		Point collidePoint = Physics.rayCollidePoint(p0, nextMove, t1, t2);
+		Point collidePoint = Physics.rayIntersectPoint(p0, nextMove, t1, t2);
 
 		System.out.println("physics " + collidePoint);
 
