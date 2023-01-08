@@ -1,16 +1,22 @@
 package idv.game.breakoutclone.system.physics;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class RayCastHit {
 
-	Point collidePoint;
-	
+	List<? extends Hit> hits = new ArrayList<>();
 
-	public synchronized void setCollidePoint(Point collidePoint) {
-		this.collidePoint = collidePoint;
+	public List<? extends Hit> getHits() {
+		return hits;
 	}
 
-	public synchronized Point getCollidePoint() {
-		return collidePoint;
+	public void setHits(List<? extends Hit> hits) {
+		this.hits = hits;
+	}
+
+	public Point getFirstCollidePoint() {
+		return this.hits.isEmpty() ? null : hits.get(0).getCollidePoint();
 	}
 
 }

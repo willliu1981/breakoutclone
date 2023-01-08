@@ -1,4 +1,4 @@
-package idv.game.breakoutclone.breakoutclone;
+package idv.game.breakoutclone;
 
 /**
  * Hello world!

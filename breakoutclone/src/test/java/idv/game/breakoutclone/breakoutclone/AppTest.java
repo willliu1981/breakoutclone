@@ -2,10 +2,10 @@ package idv.game.breakoutclone.breakoutclone;
 
 import org.junit.Test;
 
-import idv.game.breakoutclone.breakoutclone.collider.BaseRectangle;
-import idv.game.breakoutclone.breakoutclone.collider.Circle;
-import idv.game.breakoutclone.breakoutclone.collider.Rectangle;
-import idv.game.breakoutclone.breakoutclone.collider.RoundedRectangle;
+import idv.game.breakoutclone.collider.BaseRectangle;
+import idv.game.breakoutclone.collider.Circle;
+import idv.game.breakoutclone.collider.Rectangle;
+import idv.game.breakoutclone.collider.RoundedRectangle;
 
 /**
  * Unit test for simple App.

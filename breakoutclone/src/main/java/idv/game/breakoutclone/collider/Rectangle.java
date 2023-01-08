@@ -1,4 +1,4 @@
-package idv.game.breakoutclone.breakoutclone.collider;
+package idv.game.breakoutclone.collider;
 
 public class Rectangle extends SolvedRoundedRectangle {
 

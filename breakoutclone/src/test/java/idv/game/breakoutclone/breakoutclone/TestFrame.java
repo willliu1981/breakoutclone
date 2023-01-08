@@ -14,16 +14,20 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import idv.game.breakoutclone.breakoutclone.collider.BaseRectangle;
-import idv.game.breakoutclone.breakoutclone.collider.Rectangle;
+import idv.game.breakoutclone.collider.BaseRectangle;
+import idv.game.breakoutclone.collider.Collider;
+import idv.game.breakoutclone.collider.Rectangle;
 import idv.game.breakoutclone.frame.graphics.paint.ColliderPainter;
 import idv.game.breakoutclone.frame.graphics.paint.CollisionPainter;
+import idv.game.breakoutclone.frame.graphics.paint.Paintable;
 import idv.game.breakoutclone.frame.graphics.paint.Painter;
+import idv.game.breakoutclone.gameobject.GameObject;
+import idv.game.breakoutclone.system.Scenes;
+import idv.game.breakoutclone.system.location.Locations;
 import idv.game.breakoutclone.system.physics.Physics;
 import idv.game.breakoutclone.system.physics.Point;
 import idv.game.breakoutclone.system.physics.Ray;
 import idv.game.breakoutclone.system.physics.RayCastHit;
-import idv.game.breakoutclone.tools.Unit;
 
 public class TestFrame extends JFrame {
 	private final static String UNIT = "UNIT";
@@ -50,10 +54,25 @@ public class TestFrame extends JFrame {
 		});
 	}
 
+	private void init() {
+		GameObject go1 = new GameObject();
+		go1.setLocation(new Point(100, 100));
+		Collider collider = new Rectangle(200, 160);
+		collider.setX(-100);
+		collider.setY(-80);
+
+		go1.addCollider(new Rectangle(200, 160));
+
+		Scenes.addGameObject(go1);
+
+	}
+
 	/**
 	 * Create the frame.
 	 */
 	public TestFrame() {
+		init();
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(2200, 100, 800, 600);
 		contentPane = new JPanel();
@@ -87,28 +106,35 @@ public class TestFrame extends JFrame {
 			@Override
 			public void paint(Graphics g) {
 				super.paint(g);
-				final double rayLength = 158;
-				CollisionPainter painter = new CollisionPainter();
-				Point p0 = new Point(100,220);
-				Point nextMove = Physics.nextMove(p0, rayLength,0);
+				final double rayLength = 558;
 
-				Point t1 = new Point(100, 200);
-				Point t2 = new Point(100, 300);
+				Scenes.getGameObjects().stream().forEach(go -> {
+					go.getColliders().stream().forEach(c -> {
+						ColliderPainter colliderPainter = new ColliderPainter();
+						Point translateToWorldLocation = Locations
+								.translateToWorldLocation(c, new Point());
+						colliderPainter.setX(translateToWorldLocation.x);
+						colliderPainter.setY(translateToWorldLocation.y);
+						colliderPainter.paint(g, (Paintable) c);
+					});
+				});
+
+				CollisionPainter collisionPainter = new CollisionPainter();
+				Point p0 = new Point(220, 320);
+				Point nextMove = Physics.nextMove(p0, rayLength, -44);
 
 				Ray ray = new Ray(p0, nextMove);
-				Ray ray2 = new Ray(t1, t2);
 
-				painter.paint(g, ray);
-				painter.paint(g, ray2);
+				collisionPainter.paint(g, ray);
 
 				RayCastHit hit = new RayCastHit();
-				boolean isCollided = Physics.Raycast(ray, ray2, hit, rayLength);
+				boolean isCollided = Physics.Raycast(ray, hit, rayLength);
 
-				painter.paint(g, hit.getCollidePoint());
+				collisionPainter.paint(g, hit.getFirstCollidePoint());
 				if (!isCollided) {
 					lblInfo.setText("沒有碰撞");
 				} else {
-					lblInfo.setText(hit.getCollidePoint().toString());
+					lblInfo.setText(hit.getFirstCollidePoint().toString());
 				}
 
 			}

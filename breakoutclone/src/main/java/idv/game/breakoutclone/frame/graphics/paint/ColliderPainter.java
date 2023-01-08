@@ -3,10 +3,21 @@ package idv.game.breakoutclone.frame.graphics.paint;
 import java.awt.Color;
 import java.awt.Graphics;
 
-import idv.game.breakoutclone.breakoutclone.collider.BaseRectangle;
+import idv.game.breakoutclone.collider.BaseRectangle;
 import idv.game.breakoutclone.system.physics.Point;
 
 public class ColliderPainter extends Painter {
+
+	double x;
+	double y;
+
+	public void setX(double x) {
+		this.x = x;
+	}
+
+	public void setY(double y) {
+		this.y = y;
+	}
 
 	@Override
 	public void paint(Graphics g, Paintable paint) {
@@ -20,7 +31,7 @@ public class ColliderPainter extends Painter {
 				rect.getRound_length() + rect.getFixedHeigth());
 
 		//起始位置
-		Graphics g2 = g.create(50, 50, 400, 400);
+		Graphics g2 = g.create((int) x, (int) y, 400, 400);
 
 		//圓角
 		int roundSize = (int) (rect.getRound_length() * 2);

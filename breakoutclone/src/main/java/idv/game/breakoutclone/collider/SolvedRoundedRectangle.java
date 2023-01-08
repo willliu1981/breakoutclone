@@ -1,4 +1,4 @@
-package idv.game.breakoutclone.breakoutclone.collider;
+package idv.game.breakoutclone.collider;
 
 public class SolvedRoundedRectangle extends BaseRectangle {
 
@@ -67,5 +67,7 @@ public class SolvedRoundedRectangle extends BaseRectangle {
 		double fixed = this.height - this.round_length * 2;
 		return fixed < 0 ? 0 : fixed;
 	}
+
+
 
 }

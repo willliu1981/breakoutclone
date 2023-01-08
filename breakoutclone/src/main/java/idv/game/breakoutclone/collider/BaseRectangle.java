@@ -1,8 +1,8 @@
-package idv.game.breakoutclone.breakoutclone.collider;
+package idv.game.breakoutclone.collider;
 
 import idv.game.breakoutclone.frame.graphics.paint.Paintable;
 
-public abstract class BaseRectangle implements Paintable {
+public abstract class BaseRectangle extends Collider implements Paintable {
 	protected double round_length;//圓角
 	protected double width;
 	protected double height;
@@ -23,14 +23,15 @@ public abstract class BaseRectangle implements Paintable {
 
 	public abstract double getFixedHeigth();
 
+
+
 	@Override
 	public String toString() {
 		return "BaseRectangle [getRound_length()=" + getRound_length()
 				+ ", getWidth()=" + getWidth() + ", getHeight()=" + getHeight()
 				+ ", getFixedWidth()=" + getFixedWidth() + ", getFixedHeigth()="
-				+ getFixedHeigth() + "]";
+				+ getFixedHeigth() + ", getX()=" + getX() + ", getY()=" + getY()
+				+ "]";
 	}
 
-	
-	
 }

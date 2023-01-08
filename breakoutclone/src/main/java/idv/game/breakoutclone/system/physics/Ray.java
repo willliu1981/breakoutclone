@@ -18,11 +18,11 @@ public class Ray implements Paintable {
 
 	
 	
-	public synchronized Point getP0() {
+	public  Point getP0() {
 		return p0;
 	}
 
-	public synchronized Point getP1() {
+	public  Point getP1() {
 		return p1;
 	}
 
