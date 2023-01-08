@@ -2,25 +2,22 @@ package idv.game.breakoutclone.frame.graphics.paint;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Point;
 
 import idv.game.breakoutclone.breakoutclone.collider.BaseRectangle;
+import idv.game.breakoutclone.system.coordinates.Point;
 
 public class CollidePainter extends Painter {
 
 	@Override
 	public void paint(Graphics g, Paintable paint) {
 		BaseRectangle rect = (BaseRectangle) paint;
-		Point p1 = new Point((int) (rect.getRound_length()),
-				(int) (rect.getRound_length()));
-		Point p2 = new Point(
-				(int) (rect.getRound_length() + rect.getFixedWidth()),
-				(int) (rect.getRound_length()));
-		Point p3 = new Point(
-				(int) (rect.getRound_length() + rect.getFixedWidth()),
-				(int) (rect.getRound_length() + rect.getFixedHeigth()));
-		Point p4 = new Point((int) rect.getRound_length(),
-				(int) (rect.getRound_length() + rect.getFixedHeigth()));
+		Point p1 = new Point(rect.getRound_length(), rect.getRound_length());
+		Point p2 = new Point(rect.getRound_length() + rect.getFixedWidth(),
+				rect.getRound_length());
+		Point p3 = new Point(rect.getRound_length() + rect.getFixedWidth(),
+				rect.getRound_length() + rect.getFixedHeigth());
+		Point p4 = new Point(rect.getRound_length(),
+				rect.getRound_length() + rect.getFixedHeigth());
 
 		//起始位置
 		Graphics g2 = g.create(50, 50, 400, 400);
@@ -54,6 +51,9 @@ public class CollidePainter extends Painter {
 		g2.drawLine((int) (p4.x - rect.getRound_length()), (int) (p4.y),
 				(int) (p4.x - rect.getRound_length()),
 				(int) (p4.y - rect.getFixedHeigth()));
+
+		System.out.println("cp1 " + p3.y);
+		System.out.println("cp2 " + rect.getRound_length());
 
 	}
 

@@ -18,11 +18,12 @@ public class SolvedRoundedRectangle extends BaseRectangle {
 			round_length = 0;
 		}
 
-		if (round_length > min / 2.0) {
+		if (round_length >= min / 2.0) {
 			this.round_length = min / 2.0;
 		} else {
 			this.round_length = round_length;
 		}
+
 	}
 
 	@Override

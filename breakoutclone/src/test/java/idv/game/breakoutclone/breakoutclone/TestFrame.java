@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.EventQueue;
 import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -11,11 +13,9 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import idv.game.breakoutclone.breakoutclone.collider.BaseRectangle;
-import idv.game.breakoutclone.breakoutclone.collider.RoundedRectangle;
+import idv.game.breakoutclone.breakoutclone.collider.Rectangle;
 import idv.game.breakoutclone.frame.graphics.paint.CollidePainter;
 import idv.game.breakoutclone.frame.graphics.paint.Painter;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class TestFrame extends JFrame {
 
@@ -43,7 +43,7 @@ public class TestFrame extends JFrame {
 	 */
 	public TestFrame() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 800, 600);
+		setBounds(2200, 100, 800, 600);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -60,7 +60,9 @@ public class TestFrame extends JFrame {
 			public void paint(Graphics g) {
 				super.paint(g);
 				Painter painter = new CollidePainter();
-				BaseRectangle rect = new RoundedRectangle(220, 60, 15);
+				BaseRectangle rect = new Rectangle(111,33);
+				//BaseRectangle rect = new RoundedRectangle(111,35,18);
+				//BaseRectangle rect = new Circle(111);
 
 				painter.paint(g, rect);
 			}
