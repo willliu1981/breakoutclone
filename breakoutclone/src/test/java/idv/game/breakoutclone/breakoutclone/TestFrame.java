@@ -23,11 +23,12 @@ import idv.game.breakoutclone.frame.graphics.paint.Paintable;
 import idv.game.breakoutclone.frame.graphics.paint.Painter;
 import idv.game.breakoutclone.gameobject.GameObject;
 import idv.game.breakoutclone.system.Scenes;
-import idv.game.breakoutclone.system.location.Locations;
+import idv.game.breakoutclone.system.physics.Locations;
 import idv.game.breakoutclone.system.physics.Physics;
 import idv.game.breakoutclone.system.physics.Point;
 import idv.game.breakoutclone.system.physics.Ray;
 import idv.game.breakoutclone.system.physics.RayCastHit;
+import javax.swing.BoxLayout;
 
 public class TestFrame extends JFrame {
 	private final static String UNIT = "UNIT";
@@ -36,7 +37,9 @@ public class TestFrame extends JFrame {
 	private JPanel contentPane;
 	private JPanel panel_unit;
 	private JPanel panel_show;
-	private JLabel lblInfo;
+	private JLabel lblInfo2;
+	private JLabel lblInfo3;
+	private JLabel lblInfo1;
 
 	/**
 	 * Launch the application.
@@ -93,8 +96,8 @@ public class TestFrame extends JFrame {
 				super.paint(g);
 				Painter painter = new ColliderPainter();
 				BaseRectangle rect = new Rectangle(111, 33);
-				//BaseRectangle rect = new RoundedRectangle(111,35,18);
-				//BaseRectangle rect = new Circle(111);
+				// BaseRectangle rect = new RoundedRectangle(111,35,18);
+				// BaseRectangle rect = new Circle(111);
 
 				painter.paint(g, rect);
 			}
@@ -115,8 +118,7 @@ public class TestFrame extends JFrame {
 
 					go.getColliders().stream().forEach(c -> {
 						ColliderPainter colliderPainter = new ColliderPainter();
-						Point translateToWorldLocation = Locations
-								.translateToWorldLocation(c, new Point());
+						Point translateToWorldLocation = Locations.translateToWorldLocation(c, new Point());
 						colliderPainter.setX(translateToWorldLocation.x);
 						colliderPainter.setY(translateToWorldLocation.y);
 						colliderPainter.paint(g, (Paintable) c);
@@ -124,8 +126,8 @@ public class TestFrame extends JFrame {
 				});
 
 				CollisionPainter collisionPainter = new CollisionPainter();
-				Point p0 = new Point(80, 293);
-				Point nextMove = Physics.nextMove(p0, rayLength, -12);
+				Point p0 = new Point(80, 203);
+				Point nextMove = Physics.nextMove(p0, rayLength, 33);
 
 				Ray ray = new Ray(p0, nextMove);
 
@@ -136,13 +138,19 @@ public class TestFrame extends JFrame {
 
 				collisionPainter.paint(g, hit.getFirstCollidePoint());
 				if (!isCollided) {
-					lblInfo.setText("沒有碰撞");
+					lblInfo2.setText("沒有碰撞");
 				} else {
-					lblInfo.setText(hit.getFirstCollidePoint().toString());
+					String collidePoint = hit.getFirstCollidePoint().toString();
+					double angle1 = Locations.getAngle(hit.getFirstCollidePoint(), p0,
+							hit.getFirstCollideLine().getP0());
+					double angle2 = Locations.getAngle(hit.getFirstCollidePoint(), p0,
+							hit.getFirstCollideLine().getP1());
+					lblInfo1.setText("collide point:" + collidePoint);
+					lblInfo2.setText("angle 1:" + angle1);
+					lblInfo3.setText("angle 2:" + angle2);
 				}
 
-				hit.getHits()
-						.forEach(h -> System.out.println(h.getCollidePoint()));
+				// hit.getHits().forEach(h -> System.out.println(h.getCollidePoint()));
 
 			}
 		};
@@ -170,11 +178,17 @@ public class TestFrame extends JFrame {
 		panel_title.add(btnSimulator);
 
 		JPanel panel_infomation = new JPanel();
-		panel_infomation.setPreferredSize(new Dimension(10, 30));
 		contentPane.add(panel_infomation, BorderLayout.SOUTH);
+		panel_infomation.setLayout(new BoxLayout(panel_infomation, BoxLayout.Y_AXIS));
 
-		lblInfo = new JLabel("");
-		panel_infomation.add(lblInfo);
+		lblInfo1 = new JLabel("1");
+		panel_infomation.add(lblInfo1);
+
+		lblInfo2 = new JLabel("2");
+		panel_infomation.add(lblInfo2);
+
+		lblInfo3 = new JLabel("3");
+		panel_infomation.add(lblInfo3);
 	}
 
 }

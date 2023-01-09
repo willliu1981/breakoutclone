@@ -11,7 +11,6 @@ import idv.game.breakoutclone.collider.Collider;
 import idv.game.breakoutclone.collider.Rectangle;
 import idv.game.breakoutclone.gameobject.GameObject;
 import idv.game.breakoutclone.system.Scenes;
-import idv.game.breakoutclone.system.location.Locations;
 
 public class Physics {
 
@@ -110,6 +109,7 @@ public class Physics {
 			if ((ray.p1.x - ray.p0.x) * (rayIntersectPoint.x - ray.p0.x) > 0) {
 				hit.setCollidePoint(rayIntersectPoint);
 				hit.setDistance(targetDistance);
+				hit.setCollideLine(targetLine);
 				return true;
 			}
 		}

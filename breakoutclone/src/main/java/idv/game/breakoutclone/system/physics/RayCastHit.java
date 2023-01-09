@@ -19,4 +19,8 @@ public class RayCastHit {
 		return this.hits.isEmpty() ? null : hits.get(0).getCollidePoint();
 	}
 
+	public Line getFirstCollideLine() {
+		return this.hits.isEmpty() ? null : hits.get(0).getCollideLine();
+	}
+
 }
