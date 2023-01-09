@@ -40,6 +40,7 @@ public class TestFrame extends JFrame {
 	private JLabel lblInfo2;
 	private JLabel lblInfo3;
 	private JLabel lblInfo1;
+	private JLabel lblInfo4;
 
 	/**
 	 * Launch the application.
@@ -110,14 +111,16 @@ public class TestFrame extends JFrame {
 			@Override
 			public void paint(Graphics g) {
 				super.paint(g);
+				// params
 				final double rayLength = 558;
+				final double p0Angle = 20;
 
+				CollisionPainter collisionPainter = new CollisionPainter();
+				ColliderPainter colliderPainter = new ColliderPainter();
 				Scenes.getGameObjects().stream().forEach(go -> {
-					CollisionPainter goCollisionPainter = new CollisionPainter();
-					goCollisionPainter.paint(g, go.getLocation());
+					collisionPainter.paint(g, go.getLocation());
 
 					go.getColliders().stream().forEach(c -> {
-						ColliderPainter colliderPainter = new ColliderPainter();
 						Point translateToWorldLocation = Locations.translateToWorldLocation(c, new Point());
 						colliderPainter.setX(translateToWorldLocation.x);
 						colliderPainter.setY(translateToWorldLocation.y);
@@ -125,9 +128,8 @@ public class TestFrame extends JFrame {
 					});
 				});
 
-				CollisionPainter collisionPainter = new CollisionPainter();
-				Point p0 = new Point(80, 203);
-				Point nextMove = Physics.nextMove(p0, rayLength, 33);
+				Point p0 = new Point(60, 233);
+				Point nextMove = Physics.nextMove(p0, p0Angle, rayLength);
 
 				Ray ray = new Ray(p0, nextMove);
 
@@ -138,16 +140,26 @@ public class TestFrame extends JFrame {
 
 				collisionPainter.paint(g, hit.getFirstCollidePoint());
 				if (!isCollided) {
-					lblInfo2.setText("沒有碰撞");
+					lblInfo1.setText("沒有碰撞");
 				} else {
-					String collidePoint = hit.getFirstCollidePoint().toString();
-					double angle1 = Locations.getAngle(hit.getFirstCollidePoint(), p0,
+					String collidePointStr = hit.getFirstCollidePoint().toString();
+					double incidenceAngle1 = Locations.getIncidenceAngle(hit.getFirstCollidePoint(), p0,
 							hit.getFirstCollideLine().getP0());
-					double angle2 = Locations.getAngle(hit.getFirstCollidePoint(), p0,
+					double incidenceAngle2 = Locations.getIncidenceAngle(hit.getFirstCollidePoint(), p0,
 							hit.getFirstCollideLine().getP1());
-					lblInfo1.setText("collide point:" + collidePoint);
-					lblInfo2.setText("angle 1:" + angle1);
-					lblInfo3.setText("angle 2:" + angle2);
+
+					double reflectionAngle = Locations.getReflectionAngle(p0Angle,
+							Math.min(incidenceAngle1, incidenceAngle2));
+					Ray rflRay = new Ray(hit.getFirstCollidePoint(),
+							Physics.nextMove(hit.getFirstCollidePoint(), reflectionAngle, 100));
+					collisionPainter.paint(g, rflRay);
+
+					// textBox
+					lblInfo1.setText("collide point:" + collidePointStr);
+					lblInfo2.setText("incidenceAngle 1:" + incidenceAngle1);
+					lblInfo3.setText("incidenceAngle 2:" + incidenceAngle2);
+					lblInfo4.setText("reflectionAngle:" + reflectionAngle);
+
 				}
 
 				// hit.getHits().forEach(h -> System.out.println(h.getCollidePoint()));
@@ -181,14 +193,17 @@ public class TestFrame extends JFrame {
 		contentPane.add(panel_infomation, BorderLayout.SOUTH);
 		panel_infomation.setLayout(new BoxLayout(panel_infomation, BoxLayout.Y_AXIS));
 
-		lblInfo1 = new JLabel("1");
+		lblInfo1 = new JLabel("");
 		panel_infomation.add(lblInfo1);
 
-		lblInfo2 = new JLabel("2");
+		lblInfo2 = new JLabel("");
 		panel_infomation.add(lblInfo2);
 
-		lblInfo3 = new JLabel("3");
+		lblInfo3 = new JLabel("");
 		panel_infomation.add(lblInfo3);
+
+		lblInfo4 = new JLabel("");
+		panel_infomation.add(lblInfo4);
 	}
 
 }

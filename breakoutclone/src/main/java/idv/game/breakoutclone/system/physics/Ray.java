@@ -25,6 +25,8 @@ public class Ray implements Paintable {
 	public  Point getP1() {
 		return p1;
 	}
+	
+	
 
 	@Override
 	public String toString() {

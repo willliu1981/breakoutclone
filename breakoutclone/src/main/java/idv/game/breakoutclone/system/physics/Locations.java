@@ -11,7 +11,7 @@ public class Locations {
 		return new Point(location.x + parent.getX() + p.x, location.y + parent.getY() + p.y);
 	}
 
-	public static double getAngle(Point pSrc, Point p1, Point p2) {
+	public static double getIncidenceAngle(Point pSrc, Point p1, Point p2) {
 		double angle = 0.0f; // 夹角
 
 		// 向量Vector a的(x, y)坐标
@@ -41,13 +41,17 @@ public class Locations {
 		return angle;
 	}
 
+	public static double getReflectionAngle(double p0Angle, double incidenceAngle) {
+		return p0Angle - incidenceAngle * 2;
+	}
+
 	@Test
 	public void test() {
 		Point p0 = new Point(100, 100);
 		Point pa = new Point(150, 50);
 		Point pb = new Point(150, 150);
 
-		double angle = getAngle(p0, pa, pb);
+		double angle = getIncidenceAngle(p0, pa, pb);
 		System.out.println(angle);
 
 	}

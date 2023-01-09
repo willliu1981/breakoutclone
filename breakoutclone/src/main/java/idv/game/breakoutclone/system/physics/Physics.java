@@ -22,7 +22,7 @@ public class Physics {
 		return dist;
 	}
 
-	static public Point nextMove(Point p0, double velocity, double degree) {
+	static public Point nextMove(Point p0, double degree, double velocity) {
 
 		double x = velocity * Math.cos(Math.toRadians(degree));
 		double y = velocity * Math.sin(Math.toRadians(degree));
