@@ -107,7 +107,7 @@ public class TestFrame extends JFrame {
 			@Override
 			public void paint(Graphics g) {
 				super.paint(g);
-				final double rayLength = 458;
+				final double rayLength = 558;
 
 				Scenes.getGameObjects().stream().forEach(go -> {
 					CollisionPainter goCollisionPainter = new CollisionPainter();

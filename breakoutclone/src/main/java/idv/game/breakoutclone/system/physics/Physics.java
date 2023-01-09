@@ -86,20 +86,18 @@ public class Physics {
 			return false;
 		}
 
-		System.out.println("P1-1 " + calcDistance(ray.p0, rayIntersectPoint));
-		System.out.println("P1-2 " + rayIntersectPoint);
-		System.out.println("P1-3 " + targetLine);
 		//不在目標邊上
-		if (!(rayIntersectPoint.x >= Math.min(targetLine.p0.x, targetLine.p1.x)
-				&& rayIntersectPoint.x <= Math.max(targetLine.p0.x,
-						targetLine.p1.x)
-				&& rayIntersectPoint.y >= Math.min(targetLine.p0.y,
-						targetLine.p1.y)
-				&& rayIntersectPoint.y <= Math.max(targetLine.p0.y,
-						targetLine.p1.y))) {
+		double tolerance = 0.1;
+		if (!(rayIntersectPoint.x >= -tolerance
+				+ Math.min(targetLine.p0.x, targetLine.p1.x)
+				&& rayIntersectPoint.x <= tolerance
+						+ Math.max(targetLine.p0.x, targetLine.p1.x)
+				&& rayIntersectPoint.y >= -tolerance
+						+ Math.min(targetLine.p0.y, targetLine.p1.y)
+				&& rayIntersectPoint.y <= tolerance
+						+ Math.max(targetLine.p0.y, targetLine.p1.y))) {
 			return false;
 		}
-		System.out.println("P2 " );
 
 		//在目標距離外
 		if (distance < (targetDistance = calcDistance(ray.p0,
@@ -107,7 +105,6 @@ public class Physics {
 
 			return false;
 		}
-		System.out.println("P3 " );
 		//方向同異
 		if (ray.p0.x != rayIntersectPoint.x) {
 			if ((ray.p1.x - ray.p0.x) * (rayIntersectPoint.x - ray.p0.x) > 0) {
