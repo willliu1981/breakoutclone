@@ -36,6 +36,8 @@ public class SimulationPaintable implements FramePaintable {
 		ColliderPainter colliderPainter = new ColliderPainter();
 		Vector normal = null;
 		Ray normalRay = null;
+		Vector reflectionVector = null;
+		Ray reflectionRay = null;
 
 		// 繪製物體中心點
 		Scenes.getGameObjects().stream().forEach(go -> {
@@ -55,7 +57,6 @@ public class SimulationPaintable implements FramePaintable {
 		Point nextMove = Physics.nextPoint(p0, P0ANGLE, RAYLENGTH);
 
 		Ray ray = new Ray(p0, p1, RAYLENGTH);
-		System.out.println("SP ray" + ray);
 
 		// 繪製入射角射線
 		collisionPainter.setColor(Color.red);
@@ -76,19 +77,20 @@ public class SimulationPaintable implements FramePaintable {
 			double incidenceAngle2 = Locations.getAngle(hit.getFirstCollidePoint(), p0,
 					hit.getFirstCollideLine().getP1());
 
+			// 繪製碰撞法線
 			normal = Locations.getNormal(hit.getFirstCollidePoint(), hit.getFirstCollideLine().getP0(), p0);
 			normalRay = new Ray(hit.getFirstCollidePoint(),
 					new Point(normal.x + hit.getFirstCollidePoint().x, normal.y + hit.getFirstCollidePoint().y),
 					NORMALLENGTH);
-
 			collisionPainter.setColor(NORMALCOLOR);
 			collisionPainter.paint(g, normalRay);
-			/*
-			 * double reflectionAngle = Locations.getReflectionAngle(p0Angle,
-			 * Math.min(incidenceAngle1, incidenceAngle2)); Ray rflRay = new
-			 * Ray(hit.getFirstCollidePoint(), Physics.nextMove(hit.getFirstCollidePoint(),
-			 * reflectionAngle, 100)); collisionPainter.paint(g, rflRay); //
-			 */
+
+			// 繪製反射射線
+			reflectionVector = Locations.getReflectionVector(new Vector(p0, p1), normal);
+			reflectionRay = new Ray(hit.getFirstCollidePoint(),
+					Physics.nextPoint(hit.getFirstCollidePoint(), reflectionVector), RAYLENGTH);
+			collisionPainter.setColor(Color.blue);
+			collisionPainter.paint(g, reflectionRay);
 
 			// textBox
 			lblInfo1.setText("collide point:" + collidePointStr);
@@ -101,7 +103,8 @@ public class SimulationPaintable implements FramePaintable {
 		// hit.getHits().forEach(h -> System.out.println(h.getCollidePoint()));
 
 		RayLineCastHit testLineHit = new RayLineCastHit();
-		Line testLine = new Line(new Point(220, 213), new Point(110, 350));
+		Line testLine = new Line(new Point(210, 350), new Point(220, 213));
+		// 繪製測試線&法線
 		collisionPainter.setColor(Color.gray);
 		collisionPainter.paint(g, testLine);
 		if (Physics.Raycast(ray, testLine, testLineHit, RAYLENGTH)) {
@@ -112,9 +115,14 @@ public class SimulationPaintable implements FramePaintable {
 
 			collisionPainter.setColor(NORMALCOLOR);
 			collisionPainter.paint(g, normalRay);
-			System.out.println("SP test normal normal " + normal);
-			System.out.println("SP test normal normalRay " + normalRay);
 
+			reflectionVector = Locations.getReflectionVector(new Vector(p0, p1), normal);
+			reflectionRay = new Ray(testLineHit.getCollidePoint(),
+					Physics.nextPoint(testLineHit.getCollidePoint(), reflectionVector), RAYLENGTH);
+			collisionPainter.setColor(Color.blue);
+			collisionPainter.paint(g, reflectionRay);
+			System.out.println("SP test reflectionVector" + reflectionVector);
+			System.out.println("SP test reflectionRay" + reflectionRay);
 		}
 
 	}

@@ -10,4 +10,8 @@ public class Vector extends Point {
 		super(x, y);
 	}
 
+	public Vector(Point p0, Point p1) {
+		super(p1.x - p0.x, p1.y - p0.y);
+	}
+
 }

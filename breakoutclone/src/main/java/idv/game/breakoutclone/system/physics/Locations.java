@@ -53,8 +53,40 @@ public class Locations {
 		return angle;
 	}
 
+	public static Vector getReflectionVector(Vector incidentceVector, Vector normalVector) {
+		// 公式 R=I-2(I.N)N
+		// I=入射向量, R=反射向量, N=法線向量
+		// I.N = |I||N|cosθ = I.x*N.x+I.y*N.y
+
+		Vector incidentceNorm = getNorm(incidentceVector);
+		Vector normalNorm = getNorm(normalVector);
+		Vector reflectionVector = new Vector();
+
+		double IdotN = incidentceNorm.x * normalNorm.x + incidentceNorm.y * normalNorm.y;
+		reflectionVector.x = incidentceNorm.x - 2 * IdotN * normalNorm.x;
+		reflectionVector.y = incidentceNorm.y - 2 * IdotN * normalNorm.y;
+
+		return reflectionVector;
+	}
+
 	public static double getReflectionAngle(double p0Angle, double incidenceAngle) {
+		// 公式 R=I-2(I.N)N
+		// I=入射向量, R=反射向量, N=法線向量
+		// I.N = |I||N|cosθ = I.x*N.x+I.y*N.y
+
 		return p0Angle - incidenceAngle * 2;
+	}
+
+	/**
+	 * 
+	 * @param vector
+	 * @return 單位向量
+	 */
+	public static Vector getNorm(Vector vector) {
+		double length = Physics.calcDistance(new Point(), vector);
+		double rate = 1 / length;
+
+		return new Vector(vector.x * rate, vector.y * rate);
 	}
 
 	/**

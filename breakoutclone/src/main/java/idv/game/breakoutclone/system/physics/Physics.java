@@ -20,6 +20,10 @@ public class Physics {
 		return dist;
 	}
 
+	static public Point nextPoint(Point p0, Vector vector) {
+		return new Point(p0.x + vector.x, p0.y + vector.y);
+	}
+
 	static public Point nextPoint(Point p0, double degree, double velocity) {
 
 		double x = velocity * Math.cos(Math.toRadians(degree));
