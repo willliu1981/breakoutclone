@@ -11,7 +11,19 @@ public class Locations {
 		return new Point(location.x + parent.getX() + p.x, location.y + parent.getY() + p.y);
 	}
 
-	public static double getIncidenceAngle(Point pSrc, Point p1, Point p2) {
+	public static double getIncidenceAngle(Point p0, Point p1, Point p2) {
+		return getAngle(p0, p1, p2);
+	}
+
+	/**
+	 * 
+	 * @param pSrc 線段|pSrc p1| 和 |pSrc p2| 相交於 pSrc
+	 * @param p1
+	 * @param p2
+	 * @return
+	 */
+	public static double getAngle(Point pSrc, Point p1, Point p2) {
+
 		double angle = 0.0f; // 夹角
 
 		// 向量Vector a的(x, y)坐标
@@ -45,13 +57,37 @@ public class Locations {
 		return p0Angle - incidenceAngle * 2;
 	}
 
+	/**
+	 * 
+	 * @param collidePoint 線段|pSrc anyPointInLine| 和 |pSrc incidentcePoint| 相交於 pSrc
+	 * @param anyPointInLine
+	 * @param incidentceP0
+	 * @return 法線向量
+	 */
+	public static Vector getNormal(Point collidePoint, Point anyPointInLine, Point incidentceP0) {
+		// line 向量
+		Vector lineVector = new Vector(anyPointInLine.x - collidePoint.x, anyPointInLine.y - collidePoint.y);
+
+		// 法線向量
+		Vector normalVector1 = new Vector(-1 * lineVector.y, lineVector.x);
+		Vector normalVector2 = new Vector(lineVector.y, -1 * lineVector.x);
+
+		double angle = getAngle(collidePoint, incidentceP0,
+				new Point(normalVector1.x + collidePoint.x, normalVector1.y + collidePoint.y));
+		if (angle < 90) {
+			return normalVector1;
+		} else {
+			return normalVector2;
+		}
+	}
+
 	@Test
 	public void test() {
 		Point p0 = new Point(100, 100);
 		Point pa = new Point(150, 50);
 		Point pb = new Point(150, 150);
 
-		double angle = getIncidenceAngle(p0, pa, pb);
+		double angle = getAngle(p0, pa, pb);
 		System.out.println(angle);
 
 	}
