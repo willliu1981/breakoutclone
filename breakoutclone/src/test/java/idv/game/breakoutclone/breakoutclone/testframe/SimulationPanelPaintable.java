@@ -8,6 +8,8 @@ import javax.swing.JLabel;
 import idv.game.breakoutclone.frame.graphics.paint.ColliderPainter;
 import idv.game.breakoutclone.frame.graphics.paint.CollisionPainter;
 import idv.game.breakoutclone.frame.graphics.paint.Paintable;
+import idv.game.breakoutclone.frame.graphics.paint.Painter;
+import idv.game.breakoutclone.frame.graphics.paint.PainterFactory;
 import idv.game.breakoutclone.system.Scenes;
 import idv.game.breakoutclone.system.physics.Line;
 import idv.game.breakoutclone.system.physics.Locations;
@@ -18,7 +20,7 @@ import idv.game.breakoutclone.system.physics.RayCastHit;
 import idv.game.breakoutclone.system.physics.RayLineCastHit;
 import idv.game.breakoutclone.system.physics.Vector;
 
-public class SimulationPaintable implements FramePaintable {
+public class SimulationPanelPaintable implements FramePaintable {
 	private JLabel lblInfo2;
 	private JLabel lblInfo3;
 	private JLabel lblInfo1;
@@ -32,8 +34,10 @@ public class SimulationPaintable implements FramePaintable {
 		final double NORMALLENGTH = 50;
 		final Color NORMALCOLOR = new Color(0, 122, 0);
 
-		CollisionPainter collisionPainter = new CollisionPainter();
-		ColliderPainter colliderPainter = new ColliderPainter();
+		ColliderPainter colliderPainter = PainterFactory.getPainter(PainterFactory.COLLIDERPAINTER,
+				ColliderPainter.class);
+		CollisionPainter collisionPainter = PainterFactory.getPainter(PainterFactory.COLLISIONPAINTER,
+				CollisionPainter.class);
 		Vector normal = null;
 		Ray normalRay = null;
 		Vector reflectionVector = null;
@@ -103,7 +107,7 @@ public class SimulationPaintable implements FramePaintable {
 		// hit.getHits().forEach(h -> System.out.println(h.getCollidePoint()));
 
 		RayLineCastHit testLineHit = new RayLineCastHit();
-		Line testLine = new Line(new Point(210, 350), new Point(220, 213));
+		Line testLine = new Line(new Point(110, 350), new Point(320, 313));
 		// 繪製測試線&法線
 		collisionPainter.setColor(Color.gray);
 		collisionPainter.paint(g, testLine);
@@ -121,8 +125,6 @@ public class SimulationPaintable implements FramePaintable {
 					Physics.nextPoint(testLineHit.getCollidePoint(), reflectionVector), RAYLENGTH);
 			collisionPainter.setColor(Color.blue);
 			collisionPainter.paint(g, reflectionRay);
-			System.out.println("SP test reflectionVector" + reflectionVector);
-			System.out.println("SP test reflectionRay" + reflectionRay);
 		}
 
 	}

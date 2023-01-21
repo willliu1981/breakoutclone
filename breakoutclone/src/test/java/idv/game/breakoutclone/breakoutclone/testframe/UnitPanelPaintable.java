@@ -7,7 +7,7 @@ import idv.game.breakoutclone.collider.Rectangle;
 import idv.game.breakoutclone.frame.graphics.paint.ColliderPainter;
 import idv.game.breakoutclone.frame.graphics.paint.Painter;
 
-public class UnitPaintable implements FramePaintable {
+public class UnitPanelPaintable implements FramePaintable {
 
 	@Override
 	public void paint(Graphics g) {

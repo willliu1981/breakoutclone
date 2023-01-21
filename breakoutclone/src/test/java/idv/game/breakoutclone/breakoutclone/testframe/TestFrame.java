@@ -14,20 +14,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import idv.game.breakoutclone.collider.BaseRectangle;
 import idv.game.breakoutclone.collider.Collider;
 import idv.game.breakoutclone.collider.Rectangle;
-import idv.game.breakoutclone.frame.graphics.paint.ColliderPainter;
-import idv.game.breakoutclone.frame.graphics.paint.CollisionPainter;
-import idv.game.breakoutclone.frame.graphics.paint.Paintable;
-import idv.game.breakoutclone.frame.graphics.paint.Painter;
 import idv.game.breakoutclone.gameobject.GameObject;
 import idv.game.breakoutclone.system.Scenes;
-import idv.game.breakoutclone.system.physics.Locations;
-import idv.game.breakoutclone.system.physics.Physics;
 import idv.game.breakoutclone.system.physics.Point;
-import idv.game.breakoutclone.system.physics.Ray;
-import idv.game.breakoutclone.system.physics.RayCastHit;
 
 public class TestFrame extends JFrame {
 	private final static String UNIT = "UNIT";
@@ -94,7 +85,7 @@ public class TestFrame extends JFrame {
 			@Override
 			public void paint(Graphics g) {
 				super.paint(g);
-				UnitPaintable paintable = new UnitPaintable();
+				UnitPanelPaintable paintable = new UnitPanelPaintable();
 				paintable.paint(g);
 			}
 
@@ -106,7 +97,7 @@ public class TestFrame extends JFrame {
 			@Override
 			public void paint(Graphics g) {
 				super.paint(g);
-				SimulationPaintable paintable = new SimulationPaintable();
+				SimulationPanelPaintable paintable = new SimulationPanelPaintable();
 				paintable.setLblInfo1(lblInfo1);
 				paintable.setLblInfo2(lblInfo2);
 				paintable.setLblInfo3(lblInfo3);
