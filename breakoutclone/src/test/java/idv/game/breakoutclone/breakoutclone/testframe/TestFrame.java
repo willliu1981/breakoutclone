@@ -14,8 +14,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import idv.game.breakoutclone.collider.BaseRectangle;
 import idv.game.breakoutclone.collider.Collider;
-import idv.game.breakoutclone.collider.Rectangle;
+import idv.game.breakoutclone.collider.RoundedRectangleColliderFactory;
 import idv.game.breakoutclone.gameobject.GameObject;
 import idv.game.breakoutclone.system.Scenes;
 import idv.game.breakoutclone.system.physics.Point;
@@ -51,13 +52,20 @@ public class TestFrame extends JFrame {
 	private void init() {
 		GameObject go1 = new GameObject();
 		go1.setLocation(new Point(200, 200));
-		Collider collider = new Rectangle(200, 160);
+		// Collider collider = Collider.prepareCteate("Rectangle").setLocation(200,
+		// 160).createNewOne();
+		RoundedRectangleColliderFactory factory = new RoundedRectangleColliderFactory();
+		BaseRectangle collider = factory.prepareCreate(RoundedRectangleColliderFactory.RECTANGLE).setLocation(200, 160)
+				.createNewOne();
 		go1.addCollider(collider);
 		Scenes.addGameObject(go1);
 
 		GameObject go2 = new GameObject();
 		go2.setLocation(new Point(210, 360));
-		Collider collider2 = new Rectangle(260, 60);
+		// Collider collider2 = Collider.prepareCteate("Rectangle").setLocation(260,
+		// 60).createNewOne();
+		Collider collider2 = factory.prepareCreate(RoundedRectangleColliderFactory.RECTANGLE).setLocation(200, 160)
+				.createNewOne();
 		go2.addCollider(collider2);
 		Scenes.addGameObject(go2);
 	}

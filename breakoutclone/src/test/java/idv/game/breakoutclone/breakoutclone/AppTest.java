@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import idv.game.breakoutclone.collider.BaseRectangle;
 import idv.game.breakoutclone.collider.Circle;
-import idv.game.breakoutclone.collider.Rectangle;
+import idv.game.breakoutclone.collider.Collider;
 import idv.game.breakoutclone.collider.RoundedRectangle;
 
 /**
@@ -16,12 +16,12 @@ public class AppTest {
 	 */
 	@Test
 	public void shouldAnswerWithTrue() {
-		//assertTrue( true );
+		// assertTrue( true );
 
 		BaseRectangle rect1 = new RoundedRectangle(10, 40, 8);
 		System.out.println("rect1 " + rect1);
 
-		BaseRectangle rect2 = new Rectangle(20, 40);
+		BaseRectangle rect2 = (BaseRectangle) Collider.prepareCteate("Rectangle").setLocation(20, 40).createNewOne();
 		rect2.setRound_length(5);
 		System.out.println("rect2 " + rect2);
 

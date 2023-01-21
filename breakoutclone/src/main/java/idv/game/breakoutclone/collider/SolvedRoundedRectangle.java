@@ -2,7 +2,7 @@ package idv.game.breakoutclone.collider;
 
 public class SolvedRoundedRectangle extends BaseRectangle {
 
-	public SolvedRoundedRectangle() {
+	protected SolvedRoundedRectangle() {
 		super();
 	}
 
