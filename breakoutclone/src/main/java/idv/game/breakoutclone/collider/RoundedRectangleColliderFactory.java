@@ -3,20 +3,21 @@ package idv.game.breakoutclone.collider;
 public class RoundedRectangleColliderFactory {
 	public static final String RECTANGLE = Rectangle.class.getName();
 
-	private Collider creator;
+	private BaseRectangle creator;
 
 	public RoundedRectangleColliderFactory prepareCreate(String name) {
-		creator = Collider.prepareCteate(name);
-		/*
-		 * try { creator = (BaseRectangle) Class.forName(name).newInstance(); } catch
-		 * (InstantiationException | IllegalAccessException | ClassNotFoundException e)
-		 * { e.printStackTrace(); } //
-		 */
+		creator = BaseRectangle.prepareCteate(name);
 		return this;
 	}
 
 	public RoundedRectangleColliderFactory setLocation(double x, double y) {
 		creator.setLocation(x, y);
+		return this;
+	}
+
+	public RoundedRectangleColliderFactory setSize(double width, double height) {
+		((BaseRectangle) (creator.product)).setWidth(width);
+		((BaseRectangle) (creator.product)).setHeight(height);
 		return this;
 	}
 

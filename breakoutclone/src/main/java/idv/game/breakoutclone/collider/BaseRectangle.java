@@ -7,8 +7,61 @@ public abstract class BaseRectangle extends Collider implements Paintable {
 	protected double width;
 	protected double height;
 
+	private static BaseRectangle creator = new BaseRectangle() {
+
+		@Override
+		public double getRound_length() {
+			return 0;
+		}
+
+		@Override
+		public void setRound_length(double round_length) {
+
+		}
+
+		@Override
+		public double getWidth() {
+			return 0;
+		}
+
+		@Override
+		public void setWidth(double width) {
+
+		}
+
+		@Override
+		public double getHeight() {
+			return 0;
+		}
+
+		@Override
+		public void setHeight(double height) {
+
+		}
+
+		@Override
+		public double getFixedWidth() {
+			return 0;
+		}
+
+		@Override
+		public double getFixedHeigth() {
+			return 0;
+		}
+
+	};
+
 	protected BaseRectangle() {
 		super();
+	}
+
+	public static BaseRectangle prepareCteate(String name) {
+		try {
+			creator.product = (Collider) Class.forName(name).newInstance();
+		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		return creator;
 	}
 
 	public abstract double getRound_length();

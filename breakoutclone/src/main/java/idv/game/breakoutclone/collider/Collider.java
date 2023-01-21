@@ -14,10 +14,11 @@ public abstract class Collider {
 	protected GameObject owner;
 	protected List<Point> vertices = new ArrayList<>();
 
-	private static Collider singleton = new Collider() {
+	private static Collider creator = new Collider() {
+
 	};
 
-	private Collider product;
+	protected Collider product;
 
 	protected Collider() {
 
@@ -25,25 +26,25 @@ public abstract class Collider {
 
 	public static Collider prepareCteate(String name) {
 		try {
-			singleton.product = (Collider) Class.forName(name).newInstance();
+			creator.product = (Collider) Class.forName(name).newInstance();
 		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-		return singleton;
+		return creator;
 	}
 
 	public Collider setLocation(double x, double y) {
-		singleton.product.x = x;
-		singleton.product.y = y;
-		return singleton;
+		product.x = x;
+		product.y = y;
+		return creator;
 	}
 
 	public <T> Collider createNewOne(Class<T> clazz) {
-		return singleton.product;
+		return product;
 	}
 
 	public Collider createNewOne() {
-		return singleton.product;
+		return product;
 	}
 
 	public double getX() {

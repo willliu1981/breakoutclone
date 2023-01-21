@@ -50,22 +50,19 @@ public class TestFrame extends JFrame {
 	}
 
 	private void init() {
+		RoundedRectangleColliderFactory factory = new RoundedRectangleColliderFactory();
+
 		GameObject go1 = new GameObject();
 		go1.setLocation(new Point(200, 200));
-		// Collider collider = Collider.prepareCteate("Rectangle").setLocation(200,
-		// 160).createNewOne();
-		RoundedRectangleColliderFactory factory = new RoundedRectangleColliderFactory();
-		BaseRectangle collider = factory.prepareCreate(RoundedRectangleColliderFactory.RECTANGLE).setLocation(200, 160)
-				.createNewOne();
+		BaseRectangle collider = factory.prepareCreate(RoundedRectangleColliderFactory.RECTANGLE).setLocation(-100, -100)
+				.setSize(220, 150).createNewOne();
 		go1.addCollider(collider);
 		Scenes.addGameObject(go1);
 
 		GameObject go2 = new GameObject();
-		go2.setLocation(new Point(210, 360));
-		// Collider collider2 = Collider.prepareCteate("Rectangle").setLocation(260,
-		// 60).createNewOne();
-		Collider collider2 = factory.prepareCreate(RoundedRectangleColliderFactory.RECTANGLE).setLocation(200, 160)
-				.createNewOne();
+		go2.setLocation(new Point(320, 360));
+		Collider collider2 = factory.prepareCreate(RoundedRectangleColliderFactory.RECTANGLE).setLocation(-160, -180)
+				.setSize(175, 195).createNewOne();
 		go2.addCollider(collider2);
 		Scenes.addGameObject(go2);
 	}
