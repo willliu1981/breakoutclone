@@ -63,6 +63,12 @@ public abstract class BaseRectangle extends Collider implements Paintable {
 		}
 		return creator;
 	}
+	
+	public BaseRectangle setSize(double width,double height) {
+		((BaseRectangle) (creator.product)).setWidth(width);
+		((BaseRectangle) (creator.product)).setHeight(height);
+		return this;
+	}
 
 	public abstract double getRound_length();
 

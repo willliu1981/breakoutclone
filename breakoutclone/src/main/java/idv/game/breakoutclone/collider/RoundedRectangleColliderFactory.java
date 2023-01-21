@@ -16,8 +16,7 @@ public class RoundedRectangleColliderFactory {
 	}
 
 	public RoundedRectangleColliderFactory setSize(double width, double height) {
-		((BaseRectangle) (creator.product)).setWidth(width);
-		((BaseRectangle) (creator.product)).setHeight(height);
+		creator.setSize(width, height);
 		return this;
 	}
 

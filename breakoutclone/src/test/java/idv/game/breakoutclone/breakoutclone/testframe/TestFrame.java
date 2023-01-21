@@ -54,15 +54,15 @@ public class TestFrame extends JFrame {
 
 		GameObject go1 = new GameObject();
 		go1.setLocation(new Point(200, 200));
-		BaseRectangle collider = factory.prepareCreate(RoundedRectangleColliderFactory.RECTANGLE).setLocation(-100, -100)
+		BaseRectangle collider = factory.prepareCreate(RoundedRectangleColliderFactory.RECTANGLE).setLocation(-110, -75)
 				.setSize(220, 150).createNewOne();
 		go1.addCollider(collider);
 		Scenes.addGameObject(go1);
 
 		GameObject go2 = new GameObject();
 		go2.setLocation(new Point(320, 360));
-		Collider collider2 = factory.prepareCreate(RoundedRectangleColliderFactory.RECTANGLE).setLocation(-160, -180)
-				.setSize(175, 195).createNewOne();
+		Collider collider2 = factory.prepareCreate(RoundedRectangleColliderFactory.RECTANGLE).setLocation(-138, -44)
+				.setSize(276, 88).createNewOne();
 		go2.addCollider(collider2);
 		Scenes.addGameObject(go2);
 	}
