@@ -1,11 +1,8 @@
 package idv.game.breakoutclone.frame.graphics.paint;
 
 public abstract class PainterFactory {
-	public static final String COLLIDERPAINTER = "colliderPainter";
-	public static final String COLLISIONPAINTER = "collisionPainter";
-
-	private static Painter colliderPainter = new ColliderPainter2();
-	private static Painter collisionPainter = new CollisionPainter();
+	public static final String COLLIDERPAINTER = ColliderPainter2.class.getName();
+	public static final String COLLISIONPAINTER = CollisionPainter.class.getName();
 
 	public static Painter getPainter(String painterName) {
 		return getPainter(painterName, Painter.class);
@@ -14,20 +11,7 @@ public abstract class PainterFactory {
 	public static <T> T getPainter(String painterName, Class<T> clazz) {
 
 		try {
-			String name = null;
-			switch (painterName) {
-			case COLLIDERPAINTER:
-				name = colliderPainter.getClass().getName();
-				break;
-			case COLLISIONPAINTER:
-				name = collisionPainter.getClass().getName();
-				break;
-
-			default:
-				name = "";
-			}
-
-			Class<T> painter = (Class<T>) Class.forName(name);
+			Class<T> painter = (Class<T>) Class.forName(painterName);
 			return (T) painter.newInstance();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
